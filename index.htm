@@ -1,10 +1,31 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Азбука профессий: Путешествие в Букваринск</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React and ReactDOM CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel Standalone for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
 
-const App = () => {
-  const [currentView, setCurrentView] = useState('home');
-  const [selectedLanguage, setSelectedLanguage] = useState('ru');
-  const [theme, setTheme] = useState('light');
-  const [selectedProfession, setSelectedProfession] = useState(null);
+  <script type="text/babel">
+    const { useState } = React;
+
+    const App = () => {
+      const [currentView, setCurrentView] = useState('home');
+      const [selectedLanguage, setSelectedLanguage] = useState('ru');
+      const [theme, setTheme] = useState('light');
+      const [selectedProfession, setSelectedProfession] = useState(null);
 
   // Translation dictionary
   const translations = {
@@ -92,7 +113,7 @@ const App = () => {
       id: 1, 
       letter: 'А', 
       profession: 'Аптекарь', 
-      image: 'https://placehold.co/400x300/FF6B6B/FFFFFF?text=Аптекарь', 
+      image: 'img/proffesion/аптекарь.jpg', 
       poem: 'Аптекарь знает, как здоровье беречь',
       description: 'Аптекарь — это специалист, который готовит и выдает лекарства по рецептам врачей. Он помогает людям быть здоровыми и знает, как правильно принимать лекарства.',
       game: 'Игра "Собери лекарство"'
@@ -101,7 +122,7 @@ const App = () => {
       id: 2, 
       letter: 'Б', 
       profession: 'Бочар', 
-      image: 'https://placehold.co/400x300/4ECDC4/FFFFFF?text=Бочар', 
+      image: 'img/proffesion/бочар.jpg', 
       poem: 'Бочар дерево в форму сгибает',
       description: 'Бочар — это мастер, который изготавливает деревянные бочки, вёдра и другие изделия из дерева. Его работы нужны для хранения воды, вина и других продуктов.',
       game: 'Игра "Собери бочку"'
@@ -110,7 +131,7 @@ const App = () => {
       id: 3, 
       letter: 'В', 
       profession: 'Валяльщик', 
-      image: 'https://placehold.co/400x300/45B7D1/FFFFFF?text=Валяльщик', 
+      image: 'img/proffesion/валялщик.jpg', 
       poem: 'Валяльщик шерсть в изделие превращает',
       description: 'Валяльщик — это мастер, который создает одежду и аксессуары из шерсти без использования ниток и иголок. Он делает теплые вещи методом валяния.',
       game: 'Игра "Создай шерстяной предмет"'
@@ -119,7 +140,7 @@ const App = () => {
       id: 4, 
       letter: 'Г', 
       profession: 'Гончар', 
-      image: 'https://placehold.co/400x300/96CEB4/FFFFFF?text=Гончар', 
+      image: 'img/proffesion/гончар.jpg', 
       poem: 'Гончар из глины чудеса создает',
       description: 'Гончар — это ремесленник, который создает керамические изделия из глины. Он делает посуду, вазы и другие красивые предметы на гончарном круге.',
       game: 'Игра "Сделай глиняное изделие"'
@@ -128,7 +149,7 @@ const App = () => {
       id: 5, 
       letter: 'Д', 
       profession: 'Дробильщик', 
-      image: 'https://placehold.co/400x300/FFEAA7/000000?text=Дробильщик', 
+      image: 'img/proffesion/дробильщик.jpg', 
       poem: 'Дробильщик камни в пыль превращает',
       description: 'Дробильщик — это специалист, который разрушает большие камни на более мелкие части. Он работает на строительных площадках и карьерах.',
       game: 'Игра "Разбей камень"'
@@ -137,7 +158,7 @@ const App = () => {
       id: 6, 
       letter: 'Е', 
       profession: 'Ефрейтор', 
-      image: 'https://placehold.co/400x300/DDA0DD/FFFFFF?text=Ефрейтор', 
+      image: 'img/proffesion/ефрейтор.jpg', 
       poem: 'Ефрейтор в армии служит отважно',
       description: 'Ефрейтор — это военнослужащий, который командует отделением солдат. Он отвечает за выполнение боевых задач и подготовку подчинённых.',
       game: 'Игра "Военная задача"'
@@ -146,7 +167,7 @@ const App = () => {
       id: 7, 
       letter: 'Ж', 
       profession: 'Жестянщик', 
-      image: 'https://placehold.co/400x300/F8C471/FFFFFF?text=Жестянщик', 
+      image: 'img/proffesion/жестянщик.jpg', 
       poem: 'Жестянщик латает крыши и баки',
       description: 'Жестянщик — это мастер, который работает с металлическими листами. Он делает водосточные трубы, кровлю, жестяные вёдра и другие изделия.',
       game: 'Игра "Почини крышку"'
@@ -155,7 +176,7 @@ const App = () => {
       id: 8, 
       letter: 'З', 
       profession: 'Закройщик', 
-      image: 'https://placehold.co/400x300/85C1E9/FFFFFF?text=Закройщик', 
+      image: 'img/proffesion/Закройщик.jpg', 
       poem: 'Закройщик ткань в модели превращает',
       description: 'Закройщик — это специалист, который составляет выкройки для пошива одежды. Он определяет, как нужно раскроить ткань, чтобы получить готовое изделие.',
       game: 'Игра "Создай выкройку"'
@@ -164,7 +185,7 @@ const App = () => {
       id: 9, 
       letter: 'И', 
       profession: 'Историк', 
-      image: 'https://placehold.co/400x300/7DCEA0/FFFFFF?text=Историк', 
+      image: 'img/proffesion/Историк.jpg', 
       poem: 'Историк прошлое знает и хранит',
       description: 'Историк — это учёный, который изучает прошлое человечества. Он анализирует старинные документы, археологические находки и рассказывает о событиях давних времён.',
       game: 'Игра "Открой историческую тайну"'
@@ -173,7 +194,7 @@ const App = () => {
       id: 10, 
       letter: 'К', 
       profession: 'Красильщик', 
-      image: 'https://placehold.co/400x300/F4D03F/FFFFFF?text=Красильщик', 
+      image: 'img/proffesion/Красильщик.jpg', 
       poem: 'Красильщик ткани в краски окрашивает',
       description: 'Красильщик — это мастер, который окрашивает ткани и другие материалы в различные цвета. Он знает, как сделать цвета яркими и стойкими.',
       game: 'Игра "Создай цветной узор"'
@@ -182,7 +203,7 @@ const App = () => {
       id: 11, 
       letter: 'Л', 
       profession: 'Лудильщик', 
-      image: 'https://placehold.co/400x300/E74C3C/FFFFFF?text=Лудильщик', 
+      image: 'img/proffesion/Лудильщик.jpg', 
       poem: 'Лудильщик металл в защиту облекает',
       description: 'Лудильщик — это специалист, который покрывает металлические изделия оловом для защиты от коррозии. Он работает с посудой и другими металлическими изделиями.',
       game: 'Игра "Покрой металл защитой"'
@@ -191,7 +212,7 @@ const App = () => {
       id: 12, 
       letter: 'М', 
       profession: 'Маляр', 
-      image: 'https://placehold.co/400x300/3498DB/FFFFFF?text=Маляр', 
+      image: 'img/proffesion/Маляр.jpg', 
       poem: 'Маляр стены в краски окутывает',
       description: 'Маляр — это специалист, который красит стены, потолки и другие поверхности. Он делает помещения красивыми и уютными.',
       game: 'Игра "Раскрась комнату"'
@@ -200,7 +221,7 @@ const App = () => {
       id: 13, 
       letter: 'Н', 
       profession: 'Носильщик', 
-      image: 'https://placehold.co/400x300/2ECC71/FFFFFF?text=Носильщик', 
+      image: 'img/proffesion/Носильщик.jpg', 
       poem: 'Носильщик грузы с места на место переносит',
       description: 'Носильщик — это работник, который переносит тяжелые грузы вручную. Он работает на вокзалах, в аэропортах, на складах и рынках.',
       game: 'Игра "Перенеси груз"'
@@ -209,7 +230,7 @@ const App = () => {
       id: 14, 
       letter: 'О', 
       profession: 'Овчар', 
-      image: 'https://placehold.co/400x300/F39C12/FFFFFF?text=Овчар', 
+      image: 'img/proffesion/Овчар.jpg', 
       poem: 'Овчар стадо овец бережет',
       description: 'Овчар — это пастух, который пасёт овец и заботится о них. Он должен знать, как ухаживать за животными и защищать их от опасностей.',
       game: 'Игра "Паси стадо"'
@@ -218,7 +239,7 @@ const App = () => {
       id: 15, 
       letter: 'П', 
       profession: 'Писатель', 
-      image: 'https://placehold.co/400x300/9B59B6/FFFFFF?text=Писатель', 
+      image: 'img/proffesion/Писатель.jpg', 
       poem: 'Писатель слова в истории превращает',
       description: 'Писатель — это человек, который создаёт книги, рассказы и стихи. Он передаёт свои мысли и чувства через слова, чтобы радовать и учить читателей.',
       game: 'Игра "Напиши историю"'
@@ -227,7 +248,7 @@ const App = () => {
       id: 16, 
       letter: 'Р', 
       profession: 'Радист', 
-      image: 'https://placehold.co/400x300/1ABC9C/FFFFFF?text=Радист', 
+      image: 'img/proffesion/Радист.jpg', 
       poem: 'Радист голоса по воздуху разносит',
       description: 'Радист — это специалист, который работает с радиооборудованием. Он передаёт и принимает сообщения на расстоянии, используя радиоволны.',
       game: 'Игра "Принимай радиосигналы"'
@@ -236,7 +257,7 @@ const App = () => {
       id: 17, 
       letter: 'С', 
       profession: 'Сапожник', 
-      image: 'https://placehold.co/400x300/E67E22/FFFFFF?text=Сапожник', 
+      image: 'img/proffesion/Сапожник.jpg', 
       poem: 'Сапожник обувь в порядок приводит',
       description: 'Сапожник — это мастер, который ремонтирует и изготавливает обувь. Он знает, как сделать обувь удобной и долговечной.',
       game: 'Игра "Почини обувь"'
@@ -245,7 +266,7 @@ const App = () => {
       id: 18, 
       letter: 'Т', 
       profession: 'Турист', 
-      image: 'https://placehold.co/400x300/34495E/FFFFFF?text=Турист', 
+      image: 'img/proffesion/Турист.jpg', 
       poem: 'Турист мир по-новому открывает',
       description: 'Турист — это человек, который путешествует по разным странам и городам. Он изучает новые культуры, природу и достопримечательности.',
       game: 'Игра "Открой новые страны"'
@@ -254,7 +275,7 @@ const App = () => {
       id: 19, 
       letter: 'У', 
       profession: 'Укротитель', 
-      image: 'https://placehold.co/400x300/8E44AD/FFFFFF?text=Укротитель', 
+      image: 'img/proffesion/Укротитель.jpg', 
       poem: 'Укротитель зверей в цирке управляет',
       description: 'Укротитель — это артист цирка, который работает с дикими животными. Он обучает их трюкам и выступает с ними перед зрителями.',
       game: 'Игра "Обучи животное трюку"'
@@ -263,7 +284,7 @@ const App = () => {
       id: 20, 
       letter: 'Ф', 
       profession: 'Фотолюбитель', 
-      image: 'https://placehold.co/400x300/27AE60/FFFFFF?text=Фотолюбитель', 
+      image: 'img/proffesion/Фотолюбитель.jpg', 
       poem: 'Фотолюбитель моменты в кадр запечатляет',
       description: 'Фотолюбитель — это человек, который увлекается фотографией. Он снимает красивые пейзажи, людей и события, создавая визуальные воспоминания.',
       game: 'Игра "Сфотографируй красоту"'
@@ -272,7 +293,7 @@ const App = () => {
       id: 21, 
       letter: 'Х', 
       profession: 'Художник-баталист', 
-      image: 'https://placehold.co/400x300/C0392B/FFFFFF?text=Художник', 
+      image: 'img/proffesion/Художник-баталист.jpg', 
       poem: 'Художник-баталист битвы на холсте рисует',
       description: 'Художник-баталист — это художник, который изображает сцены сражений и военных действий. Он сохраняет память о важных исторических событиях.',
       game: 'Игра "Нарисуй историческую сцену"'
@@ -281,7 +302,7 @@ const App = () => {
       id: 22, 
       letter: 'Ц', 
       profession: 'Цимбалист', 
-      image: 'https://placehold.co/400x300/F1C40F/FFFFFF?text=Цимбалист', 
+      image: 'img/proffesion/Цимбалист.jpg', 
       poem: 'Цимбалист музыку на инструменте рождает',
       description: 'Цимбалист — это музыкант, который играет на цимбалах. Он создает красивые мелодии и участвует в концертах и оркестрах.',
       game: 'Игра "Сыграй мелодию"'
@@ -290,7 +311,7 @@ const App = () => {
       id: 23, 
       letter: 'Ч', 
       profession: 'Часовщик', 
-      image: 'https://placehold.co/400x300/7F8C8D/FFFFFF?text=Часовщик', 
+      image: 'img/proffesion/Часовщик.jpg', 
       poem: 'Часовщик время в механизмах хранит',
       description: 'Часовщик — это специалист, который ремонтирует и обслуживает часы. Он работает с точными механизмами и знает, как заставить часы снова идти точно.',
       game: 'Игра "Почини часы"'
@@ -299,7 +320,7 @@ const App = () => {
       id: 24, 
       letter: 'Ш', 
       profession: 'Шофер', 
-      image: 'https://placehold.co/400x300/2C3E50/FFFFFF?text=Шофер', 
+      image: 'img/proffesion/Шофер.jpg', 
       poem: 'Шофер машину по дороге ведет',
       description: 'Шофер — это водитель автомобиля. Он перевозит людей и грузы, обеспечивая безопасность и пунктуальность.',
       game: 'Игра "Управляй автомобилем"'
@@ -308,7 +329,7 @@ const App = () => {
       id: 25, 
       letter: 'Щ', 
       profession: 'Щенок Букетик', 
-      image: 'https://placehold.co/400x300/EC7063/FFFFFF?text=Щенок', 
+      image: 'img/proffesion/Щенок.jpg', 
       poem: 'Щенок Букетик дружбу в Букваринске несет',
       description: 'Щенок Букетик — это добродушный друг, который сопровождает детей в их путешествии по Букваринску. Он веселый, игривый и всегда готов помочь.',
       game: 'Игра "Поиграй с Букетиком"'
@@ -317,7 +338,7 @@ const App = () => {
       id: 26, 
       letter: 'Э', 
       profession: 'Электрик', 
-      image: 'https://placehold.co/400x300/58D68D/FFFFFF?text=Электрик', 
+      image: 'img/proffesion/Электрик.jpg', 
       poem: 'Электрик свет в домах зажигает',
       description: 'Электрик — это специалист, который устанавливает и ремонтирует электрические сети. Он обеспечивает свет и электроэнергию в домах и на предприятиях.',
       game: 'Игра "Проведи провода"'
@@ -326,7 +347,7 @@ const App = () => {
       id: 27, 
       letter: 'Ю', 
       profession: 'Юрист', 
-      image: 'https://placehold.co/400x300/AED6F1/FFFFFF?text=Юрист', 
+      image: 'img/proffesion/Юрист.jpg', 
       poem: 'Юрист законы и права защищает',
       description: 'Юрист — это специалист в области права. Он помогает людям разбираться в правовых вопросах, защищает их права и интересы.',
       game: 'Игра "Решай правовые задачи"'
@@ -335,7 +356,7 @@ const App = () => {
       id: 28, 
       letter: 'Я', 
       profession: 'Это я, мои друзья', 
-      image: 'https://placehold.co/400x300/D2B4DE/FFFFFF?text=Друзья', 
+      image: 'img/proffesion/Друзья.jpg', 
       poem: 'Я и мои друзья — будущее Букваринска!',
       description: 'Это ты и твои друзья! Вы — будущие профессионалы, которые будут продолжать развитие Букваринска. Каждый из вас может выбрать свою профессию и внести вклад в общее дело.',
       game: 'Игра "Выбери свою профессию"'
@@ -373,88 +394,82 @@ const App = () => {
           </div>
         </header>
 
-        {/* Welcome Section */}
-        <section className="text-center mb-12">
-          <div className="bg-white rounded-3xl p-8 shadow-2xl max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">{t('welcome')}</h2>
+        {/* Welcome Section with Map */}
+        <section className="text-center mb-8">
+          <div className="bg-white rounded-3xl p-4 md:p-8 shadow-2xl max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{t('welcome')}</h2>
             <p className="text-xl text-gray-600 mb-8">{t('description')}</p>
-            <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 flex items-center justify-center">
-              <span className="text-gray-500">Видео-анимация персонажа-гида</span>
+            <div className="w-full flex justify-center">
+              <img 
+                src="img/common/main.png" 
+                alt="Карта Букваринска" 
+                className="w-full max-w-4xl h-auto rounded-xl shadow-lg object-contain"
+                onError={(e) => {e.target.onerror = null; e.target.src="https://placehold.co/800x400/png?text=Карта+Букваринска"}}
+              />
             </div>
           </div>
         </section>
 
-        {/* Interactive Map */}
+        {/* Professions Grid (Moved from ProfessionPage) */}
         <section className="mb-12">
-          <h3 className="text-2xl font-bold text-white mb-6 text-center">Интерактивная карта Букваринска</h3>
-          <div className="bg-white rounded-3xl p-8 shadow-2xl">
-            <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-96 flex items-center justify-center">
-              <span className="text-gray-500">Интерактивная карта города</span>
-            </div>
-          </div>
-        </section>
-
-        {/* Alphabet Collection - ALL letters */}
-        <section className="mb-12">
-          <h3 className="text-2xl font-bold text-white mb-6 text-center">Алфавит профессий</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-4">
-            {fullAlphabet.map((letter, index) => {
-              // Find profession by first letter
-              const profession = professions.find(p => p.letter === letter);
-              
-              return (
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8 text-center">
+              {t('professions')}
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+              {professions.map((profession) => (
                 <div 
-                  key={letter}
-                  className={`bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer ${
-                    profession ? 'border-2 border-purple-200' : ''
-                  }`}
-                  onClick={() => profession && setSelectedProfession(profession)}
+                  key={profession.id}
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 flex flex-col"
+                  onClick={() => { setSelectedProfession(profession); setCurrentView('professions'); }}
                 >
-                  <div className="text-4xl font-bold text-center text-purple-600 mb-2">{letter}</div>
-                  <div className="text-sm text-center text-gray-600 font-medium">
-                    {profession ? profession.profession : '—'}
+                  <img  
+                    src={profession.image} 
+                    alt={profession.profession}
+                    className="w-full aspect-square object-cover"
+                  />
+                  <div className="p-2 md:p-3 flex-grow flex flex-col justify-between">
+                    <div>
+                        <div className="flex items-center justify-between mb-1">
+                        <span className="text-lg md:text-xl font-bold text-purple-600">{profession.letter}</span>
+                        </div>
+                        <span className="text-sm font-semibold text-gray-800 dark:text-white block truncate">{profession.profession}</span>
+                        <p className="text-gray-600 dark:text-gray-400 italic mb-2 text-xs line-clamp-2">"{profession.poem}"</p>
+                    </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
         </section>
 
         {/* Navigation Buttons */}
-        <nav className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <button 
-            onClick={() => setCurrentView('professions')}
-            className="bg-white text-gray-800 py-4 px-6 rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
-          >
-            {t('professions')}
-          </button>
+        <nav className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 mt-8">
           <button 
             onClick={() => setCurrentView('history')}
-            className="bg-white text-gray-800 py-4 px-6 rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
+            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
           >
             {t('history')}
           </button>
           <button 
             onClick={() => setCurrentView('career')}
-            className="bg-white text-gray-800 py-4 px-6 rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
+            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
           >
             {t('careerGuidance')}
           </button>
           <button 
             onClick={() => setCurrentView('parents')}
-            className="bg-white text-gray-800 py-4 px-6 rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
+            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
           >
             {t('forParents')}
           </button>
           <button 
             onClick={() => setCurrentView('gallery')}
-            className="bg-white text-gray-800 py-4 px-6 rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
+            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
           >
             {t('gallery')}
           </button>
           <button 
             onClick={() => setCurrentView('album')}
-            className="bg-white text-gray-800 py-4 px-6 rounded-2xl font-semibold hover:bg-gray-100 transition-colors"
+            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
           >
             {t('myAlbum')}
           </button>
@@ -467,7 +482,7 @@ const App = () => {
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
       <div className="container mx-auto px-4 py-8">
         <button 
-          onClick={() => setCurrentView('home')}
+          onClick={() => selectedProfession ? setSelectedProfession(null) : setCurrentView('home')}
           className="mb-6 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
         >
           ← {t('back')}
@@ -477,20 +492,20 @@ const App = () => {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Left Column - Image and Letter */}
-              <div className="space-y-6">
-                <div className="relative">
+              <div className="space-y-6 flex flex-col items-center">
+                <div className="relative inline-block">
                   <img 
                     src={selectedProfession.image} 
                     alt={selectedProfession.profession}
-                    className="w-full h-96 object-cover rounded-3xl shadow-2xl"
+                    className="w-full max-w-sm md:max-w-md aspect-square object-cover rounded-3xl shadow-2xl"
                   />
-                  <div className="absolute -top-6 -right-6 bg-yellow-400 text-black w-20 h-20 rounded-full flex items-center justify-center text-4xl font-bold shadow-lg">
+                  <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-yellow-400 text-black w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-3xl md:text-4xl font-bold shadow-lg">
                     {selectedProfession.letter}
                   </div>
                 </div>
                 
                 {/* Poem Section */}
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-2xl">
+                <div className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 md:p-6 rounded-2xl">
                   <h3 className="text-xl font-bold mb-2">Стихотворная строка:</h3>
                   <p className="text-lg italic">"{selectedProfession.poem}"</p>
                   <button className="mt-4 bg-white text-purple-600 py-2 px-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
@@ -543,28 +558,30 @@ const App = () => {
         {/* All Professions Grid */}
         {!selectedProfession && (
           <div>
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-8 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-6 md:mb-8 text-center">
               {t('professions')}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {professions.map((profession) => (
                 <div 
                   key={profession.id}
-                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
+                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 flex flex-col"
                   onClick={() => setSelectedProfession(profession)}
                 >
                   <img 
                     src={profession.image} 
                     alt={profession.profession}
-                    className="w-full h-48 object-cover"
+                    className="w-full aspect-square object-cover"
                   />
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-3xl font-bold text-purple-600">{profession.letter}</span>
-                      <span className="text-lg font-semibold text-gray-800 dark:text-white">{profession.profession}</span>
+                  <div className="p-4 md:p-6 flex-grow flex flex-col justify-between">
+                    <div>
+                        <div className="flex items-center justify-between mb-3">
+                        <span className="text-2xl md:text-3xl font-bold text-purple-600">{profession.letter}</span>
+                        <span className="text-lg font-semibold text-gray-800 dark:text-white">{profession.profession}</span>
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-400 italic mb-3 text-sm md:text-base">"{profession.poem}"</p>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 italic mb-3">"{profession.poem}"</p>
-                    <button className="bg-blue-500 text-white py-2 px-4 rounded-lg text-sm hover:bg-blue-600 transition-colors">
+                    <button className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg text-sm hover:bg-blue-600 transition-colors mt-auto">
                       {t('continue')}
                     </button>
                   </div>
@@ -825,4 +842,9 @@ const App = () => {
   );
 };
 
-export default App;
+// Render the App to the root element
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+  </script>
+</body>
+</html>
