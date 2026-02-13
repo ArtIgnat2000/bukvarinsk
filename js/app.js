@@ -2,11 +2,11 @@ const { useState } = React;
 
 const App = () => {
     const [currentView, setCurrentView] = useState('home');
-    const [selectedLanguage, setSelectedLanguage] = useState('ru');
     const [theme, setTheme] = useState('light');
     const [selectedProfession, setSelectedProfession] = useState(null);
+    const [lastViewedProfessionId, setLastViewedProfessionId] = useState(null);
 
-    const t = (key) => window.translations[selectedLanguage][key] || key;
+    const t = (key) => window.translations['ru'][key] || key;
 
     const toggleTheme = () => {
         setTheme(theme === 'light' ? 'dark' : 'light');
@@ -21,13 +21,17 @@ const App = () => {
             setSelectedProfession={setSelectedProfession} 
             setCurrentView={setCurrentView} 
             theme={theme} 
-            selectedLanguage={selectedLanguage} 
-            setSelectedLanguage={setSelectedLanguage} 
-            toggleTheme={toggleTheme} 
+            toggleTheme={toggleTheme}
+            lastViewedProfessionId={lastViewedProfessionId}
+            setLastViewedProfessionId={setLastViewedProfessionId}
           />;
           case 'professions': return <window.ProfessionPage 
             t={t} 
             selectedProfession={selectedProfession} 
+            setSelectedProfession={setSelectedProfession} 
+            setCurrentView={setCurrentView} 
+            theme={theme} 
+          />; 
             setSelectedProfession={setSelectedProfession} 
             setCurrentView={setCurrentView} 
             theme={theme} 
@@ -44,9 +48,9 @@ const App = () => {
             setSelectedProfession={setSelectedProfession} 
             setCurrentView={setCurrentView} 
             theme={theme} 
-            selectedLanguage={selectedLanguage} 
-            setSelectedLanguage={setSelectedLanguage} 
             toggleTheme={toggleTheme} 
+            lastViewedProfessionId={lastViewedProfessionId}
+            setLastViewedProfessionId={setLastViewedProfessionId}
           />;
         }
     };

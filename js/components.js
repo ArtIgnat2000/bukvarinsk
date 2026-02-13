@@ -1,20 +1,22 @@
 // Global Components (attached to window to be accessible)
 
-window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCurrentView, theme, selectedLanguage, setSelectedLanguage, toggleTheme }) => (
+window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCurrentView, theme, toggleTheme, lastViewedProfessionId, setLastViewedProfessionId }) => {
+    React.useEffect(() => {
+        if (lastViewedProfessionId) {
+            const element = document.getElementById(`profession-${lastViewedProfessionId}`);
+            if (element) {
+                element.scrollIntoView({ behavior: 'auto', block: 'center' });
+            }
+        }
+    }, [lastViewedProfessionId]);
+
+    return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white">{t('title')}</h1>
           <div className="flex space-x-4">
-            <select 
-              value={selectedLanguage} 
-              onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="bg-white rounded-lg px-3 py-2 text-gray-800"
-            >
-              <option value="ru">Русский</option>
-              <option value="en">English</option>
-            </select>
             <button 
               onClick={toggleTheme}
               className="bg-white rounded-lg px-3 py-2 text-gray-800"
@@ -49,8 +51,13 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
               {professions.map((profession) => (
                 <div 
                   key={profession.id}
+                  id={`profession-${profession.id}`}
                   className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 flex flex-col"
-                  onClick={() => { setSelectedProfession(profession); setCurrentView('professions'); }}
+                  onClick={() => { 
+                    setLastViewedProfessionId(profession.id);
+                    setSelectedProfession(profession); 
+                    setCurrentView('professions'); 
+                  }}
                 >
                   <img 
                     src={profession.image} 
@@ -102,6 +109,7 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
             className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
           >
             {t('myAlbum')}
+};
           </button>
         </nav>
       </div>
