@@ -124,16 +124,19 @@ window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurr
   return (
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
       <div className="container mx-auto px-4 py-4">
-        <button 
-          onClick={() => { setSelectedProfession(null); setCurrentView('home'); }}
-          className="mb-2 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
-        >
-          ← {t('back')}
-        </button>
-
         {selectedProfession && (
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col gap-4">
+
+              {/* Back Button */}
+              <div>
+                <button 
+                  onClick={() => { setSelectedProfession(null); setCurrentView('home'); }}
+                  className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors inline-block"
+                >
+                  ← {t('back')}
+                </button>
+              </div>
               
               {/* Header Image and Title */}
               <div className="flex flex-col items-center text-center">
