@@ -33,7 +33,7 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
             <p className="text-xl text-gray-600 mb-8">{t('description')}</p>
             <div className="w-full flex justify-center">
               <img 
-                src="img/common/main.png" 
+                src="img/common/main.jpg" 
                 alt="Карта Букваринска" 
                 className="w-full max-w-4xl h-auto rounded-xl shadow-lg object-contain"
                 onError={(e) => {e.target.onerror = null; e.target.src="https://placehold.co/800x400/png?text=Карта+Букваринска"}}
