@@ -31,10 +31,6 @@ const App = () => {
             setSelectedProfession={setSelectedProfession} 
             setCurrentView={setCurrentView} 
             theme={theme} 
-          />; 
-            setSelectedProfession={setSelectedProfession} 
-            setCurrentView={setCurrentView} 
-            theme={theme} 
           />;
           case 'history': return <window.HistoryPage t={t} setCurrentView={setCurrentView} theme={theme} />;
           case 'career': return <window.CareerGuidancePage t={t} setCurrentView={setCurrentView} theme={theme} />;

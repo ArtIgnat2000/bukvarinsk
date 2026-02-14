@@ -109,12 +109,12 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
             className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
           >
             {t('myAlbum')}
-};
           </button>
         </nav>
       </div>
     </div>
   );
+};
 
 window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurrentView, theme }) => (
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
