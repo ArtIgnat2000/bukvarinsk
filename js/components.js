@@ -124,21 +124,21 @@ window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurr
 
   return (
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4">
         <button 
           onClick={() => { setSelectedProfession(null); setCurrentView('home'); }}
-          className="mb-6 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
+          className="mb-2 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
         >
           ← {t('back')}
         </button>
 
         {selectedProfession && (
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
               
               {/* Header Image and Title */}
               <div className="flex flex-col items-center text-center">
-                 <h2 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6">
+                 <h2 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-2">
                     {selectedProfession.profession}
                   </h2>
                 <div className="relative inline-block w-full max-w-md">
