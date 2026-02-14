@@ -120,7 +120,7 @@ window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurr
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
       <div className="container mx-auto px-4 py-8">
         <button 
-          onClick={() => selectedProfession ? setSelectedProfession(null) : setCurrentView('home')}
+          onClick={() => { setSelectedProfession(null); setCurrentView('home'); }}
           className="mb-6 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
         >
           ← {t('back')}
