@@ -116,7 +116,13 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
   );
 };
 
-window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurrentView, theme }) => (
+window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurrentView, theme }) => {
+    
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
       <div className="container mx-auto px-4 py-8">
         <button 
@@ -128,73 +134,70 @@ window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurr
 
         {selectedProfession && (
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Left Column - Image and Letter */}
-              <div className="space-y-6 flex flex-col items-center">
-                <div className="relative inline-block">
+            <div className="flex flex-col gap-6">
+              
+              {/* Header Image and Title */}
+              <div className="flex flex-col items-center text-center">
+                 <h2 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6">
+                    {selectedProfession.profession}
+                  </h2>
+                <div className="relative inline-block w-full max-w-md">
                   <img 
                     src={selectedProfession.image} 
                     alt={selectedProfession.profession}
-                    className="w-full max-w-sm md:max-w-md aspect-square object-cover rounded-3xl shadow-2xl"
+                    className="w-full aspect-square object-cover rounded-3xl shadow-2xl"
                   />
                   <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-yellow-400 text-black w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-3xl md:text-4xl font-bold shadow-lg">
                     {selectedProfession.letter}
                   </div>
                 </div>
-                
+              </div>
+
+               {/* Profession Story Block */}
+               <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">{t('story')}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
+                      {selectedProfession.description}
+                    </p>
+               </div>
+
                 {/* Poem Section */}
-                <div className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 md:p-6 rounded-2xl">
-                  <h3 className="text-xl font-bold mb-2">Стихотворная строка:</h3>
-                  <p className="text-lg italic">"{selectedProfession.poem}"</p>
-                  <button className="mt-4 bg-white text-purple-600 py-2 px-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                <div className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-2xl shadow-lg text-center">
+                  <h3 className="text-xl font-bold mb-3">Стихотворная строка:</h3>
+                  <p className="text-2xl italic mb-4">"{selectedProfession.poem}"</p>
+                  <button className="bg-white text-purple-600 py-2 px-6 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-md">
                     🔊 {t('readPoem')}
                   </button>
                 </div>
-              </div>
 
-              {/* Right Column - Content */}
-              <div className="space-y-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-                  <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
-                    {selectedProfession.profession}
-                  </h2>
-                  
-                  {/* Interactive Game Placeholder */}
-                  <div className="mb-6">
+              {/* Interactive Game Placeholder */}
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
                     <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">Интерактивная игра</h3>
-                    <div className="bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center">
-                      <span className="text-gray-500 dark:text-gray-400">{selectedProfession.game}</span>
+                    <div className="bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center mb-4">
+                      <span className="text-gray-500 dark:text-gray-400 font-medium">{selectedProfession.game}</span>
                     </div>
-                    <button className="mt-4 bg-green-500 text-white py-2 px-6 rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                    <button className="w-full bg-green-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:bg-green-600 transition-colors shadow-md">
                       🎮 {t('playGame')}
                     </button>
-                  </div>
+              </div>
 
-                  {/* Profession Story */}
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">{t('story')}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                      {selectedProfession.description}
-                    </p>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex space-x-4">
-                    <button className="bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-600 transition-colors flex items-center">
+              {/* Action Buttons */}
+              <div className="grid grid-cols-2 gap-4">
+                    <button className="bg-blue-500 text-white py-3 px-6 rounded-xl font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
                       🖨️ {t('print')}
                     </button>
-                    <button className="bg-purple-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-600 transition-colors">
+                    <button className="bg-purple-500 text-white py-3 px-6 rounded-xl font-semibold hover:bg-purple-600 transition-colors flex items-center justify-center gap-2">
                       💾 Сохранить
                     </button>
-                  </div>
-                </div>
               </div>
+
             </div>
           </div>
         )}
       </div>
     </div>
   );
+};
 
 window.HistoryPage = ({ t, setCurrentView, theme }) => (
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
