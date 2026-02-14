@@ -27,10 +27,9 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
         </header>
 
         {/* Welcome Section with Map */}
-        <section className="text-center mb-8">
-          <div className="bg-white rounded-3xl p-4 md:p-8 shadow-2xl max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{t('welcome')}</h2>
-            <p className="text-xl text-gray-600 mb-8">{t('description')}</p>
+        <section className="text-center mb-4 md:mb-8">
+          <div className="bg-white rounded-2xl p-3 md:p-8 shadow-xl max-w-6xl mx-auto">
+            <h2 className="text-xl md:text-4xl font-bold text-gray-800 mb-2 md:mb-4">{t('welcome')}</h2>
             <div className="w-full flex justify-center">
               <img 
                 src="img/common/main.jpg" 
