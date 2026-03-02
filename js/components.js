@@ -34,20 +34,20 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
 
     return (
     <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 relative">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-8">
         {/* Header */}
-        <header className="flex justify-between items-center mb-8">
+        <header className="flex justify-between items-center mb-4 md:mb-8">
           <div className="flex space-x-4">
             <button 
               onClick={() => setIsSidebarOpen(true)}
-              className="bg-white rounded-lg px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors shadow-md flex flex-col justify-center gap-1.5 w-10 h-10 items-center"
+              className="bg-white rounded-lg text-gray-800 hover:bg-gray-100 transition-colors shadow-md flex flex-col justify-center gap-1.5 w-10 h-10 items-center flex-shrink-0"
             >
-                <span className="block w-6 h-0.5 bg-gray-800 rounded-full"></span>
-                <span className="block w-6 h-0.5 bg-gray-800 rounded-full"></span>
-                <span className="block w-6 h-0.5 bg-gray-800 rounded-full"></span>
+                <span className="block w-5 h-0.5 bg-gray-800 rounded-full"></span>
+                <span className="block w-5 h-0.5 bg-gray-800 rounded-full"></span>
+                <span className="block w-5 h-0.5 bg-gray-800 rounded-full"></span>
             </button>
           </div>
-          <h1 className="text-3xl font-bold text-white">{t('title')}</h1>
+          <h1 className="text-lg md:text-3xl font-bold text-white text-right leading-tight">{t('title')}</h1>
         </header>
 
         {/* Side Menu (Drawer) */}
@@ -57,7 +57,7 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
                     className="fixed inset-0 bg-black/50 z-40 transition-opacity backdrop-blur-sm"
                     onClick={() => setIsSidebarOpen(false)}
                 />
-                <div className="fixed left-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 overflow-y-auto border-r border-gray-100 dark:border-gray-800">
+                <div className="fixed left-0 top-0 h-full w-[85vw] max-w-xs md:w-80 bg-white dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 overflow-y-auto border-r border-gray-100 dark:border-gray-800">
                     <div className="p-6">
                         <div className="flex justify-between items-center mb-8">
                             <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Меню</h2>
@@ -99,9 +99,9 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
         )}
 
         {/* Welcome Section with Map */}
-        <section className="text-center mb-4 md:mb-8">
-          <div className="bg-white rounded-2xl p-3 md:p-8 shadow-xl max-w-6xl mx-auto">
-            <h2 className="text-xl md:text-4xl font-bold text-gray-800 mb-2 md:mb-4">{t('welcome')}</h2>
+        <section className="text-center mb-3 md:mb-8">
+          <div className="bg-white rounded-2xl p-2 md:p-8 shadow-xl max-w-6xl mx-auto">
+            <h2 className="text-base md:text-4xl font-bold text-gray-800 mb-1 md:mb-4">{t('welcome')}</h2>
             <div className="w-full flex justify-center">
               <img 
                 src="img/common/main.jpg" 
@@ -114,11 +114,11 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
         </section>
 
         {/* Professions Grid (Moved from ProfessionPage) */}
-        <section className="mb-12">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8 text-center">
+        <section className="mb-6 md:mb-12">
+            <h3 className="text-xl md:text-3xl font-bold text-white mb-3 md:mb-8 text-center">
               {t('professions')}
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
               {professions.map((profession) => (
                 <div 
                   key={profession.id}
@@ -136,13 +136,13 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
                         alt={profession.profession}
                         className="w-full aspect-square object-cover"
                       />
-                      <div className="p-2 md:p-3 flex-grow flex flex-col justify-between">
+                      <div className="p-1.5 md:p-3 flex-grow flex flex-col justify-between">
                         <div>
-                            <div className="flex items-center justify-between mb-1">
-                            <span className="text-lg md:text-xl font-bold text-purple-600">{profession.letter}</span>
+                            <div className="flex items-center justify-between mb-0.5">
+                            <span className="text-base md:text-xl font-bold text-purple-600">{profession.letter}</span>
                             </div>
-                            <span className="text-sm font-semibold text-gray-800 dark:text-white block truncate">{profession.profession}</span>
-                            <p className="text-gray-600 dark:text-gray-400 italic mb-2 text-xs line-clamp-2">"{profession.poem}"</p>
+                            <span className="text-xs md:text-sm font-semibold text-gray-800 dark:text-white block truncate">{profession.profession}</span>
+                            <p className="text-gray-500 dark:text-gray-400 italic mt-0.5 text-[10px] md:text-xs line-clamp-2 hidden sm:block">"{profession.poem}"</p>
                         </div>
                       </div>
                   </div>
@@ -163,16 +163,16 @@ window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurr
 
   return (
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
         {selectedProfession && (
           <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col gap-1 md:gap-4">
+            <div className="flex flex-col gap-3 md:gap-4">
 
               {/* Back Button */}
               <div>
                 <button 
                   onClick={() => { setSelectedProfession(null); setCurrentView('home'); }}
-                  className="bg-blue-500 text-white py-1 px-3 md:py-2 md:px-4 rounded-lg hover:bg-blue-600 transition-colors inline-block"
+                  className="bg-blue-500 text-white py-1.5 px-3 md:py-2 md:px-4 rounded-lg hover:bg-blue-600 transition-colors inline-flex items-center gap-1 text-sm md:text-base"
                 >
                   ← {t('back')}
                 </button>
@@ -180,55 +180,55 @@ window.ProfessionPage = ({ t, selectedProfession, setSelectedProfession, setCurr
               
               {/* Header Image and Title */}
               <div className="flex flex-col items-center text-center">
-                 <h2 className="text-3xl md:text-5xl font-bold text-gray-800 dark:text-white mb-0 md:mb-2">
+                 <h2 className="text-2xl md:text-5xl font-bold text-gray-800 dark:text-white mb-1 md:mb-2">
                     {selectedProfession.profession}
                   </h2>
-                <div className="relative inline-block w-full max-w-md">
+                <div className="relative inline-block w-full max-w-xs md:max-w-md">
                   <img 
                     src={selectedProfession.image} 
                     alt={selectedProfession.profession}
-                    className="w-full aspect-square object-cover rounded-3xl shadow-2xl"
+                    className="w-full aspect-square object-cover rounded-2xl md:rounded-3xl shadow-xl"
                   />
-                  <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 bg-yellow-400 text-black w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-3xl md:text-4xl font-bold shadow-lg">
+                  <div className="absolute -top-3 -right-3 md:-top-6 md:-right-6 bg-yellow-400 text-black w-12 h-12 md:w-20 md:h-20 rounded-full flex items-center justify-center text-2xl md:text-4xl font-bold shadow-lg">
                     {selectedProfession.letter}
                   </div>
                 </div>
               </div>
 
                {/* Profession Story Block */}
-               <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-                    <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">{t('story')}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
+               <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-2xl shadow-lg">
+                    <h3 className="text-base md:text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">{t('story')}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm md:text-lg">
                       {selectedProfession.description}
                     </p>
                </div>
 
                 {/* Poem Section */}
-                <div className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-2xl shadow-lg text-center">
-                  <h3 className="text-xl font-bold mb-3">Стихотворная строка:</h3>
-                  <p className="text-2xl italic mb-4">"{selectedProfession.poem}"</p>
-                  <button className="bg-white text-purple-600 py-2 px-6 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-md">
+                <div className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 md:p-6 rounded-2xl shadow-lg text-center">
+                  <h3 className="text-base md:text-xl font-bold mb-2">Стихотворная строка:</h3>
+                  <p className="text-lg md:text-2xl italic mb-3">"{selectedProfession.poem}"</p>
+                  <button className="bg-white text-purple-600 py-1.5 px-5 rounded-full font-bold hover:bg-gray-100 transition-colors shadow-md text-sm md:text-base">
                     🔊 {t('readPoem')}
                   </button>
                 </div>
 
               {/* Interactive Game Placeholder */}
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg">
-                    <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-3">Интерактивная игра</h3>
-                    <div className="bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center mb-4">
-                      <span className="text-gray-500 dark:text-gray-400 font-medium">{selectedProfession.game}</span>
+              <div className="bg-white dark:bg-gray-800 p-4 md:p-6 rounded-2xl shadow-lg">
+                    <h3 className="text-base md:text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Интерактивная игра</h3>
+                    <div className="bg-gray-100 dark:bg-gray-700 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-5 md:p-8 text-center mb-3">
+                      <span className="text-gray-500 dark:text-gray-400 font-medium text-sm md:text-base">{selectedProfession.game}</span>
                     </div>
-                    <button className="w-full bg-green-500 text-white py-3 px-6 rounded-xl font-bold text-lg hover:bg-green-600 transition-colors shadow-md">
+                    <button className="w-full bg-green-500 text-white py-2.5 px-6 rounded-xl font-bold text-base md:text-lg hover:bg-green-600 transition-colors shadow-md">
                       🎮 {t('playGame')}
                     </button>
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-4">
-                    <button className="bg-blue-500 text-white py-3 px-6 rounded-xl font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                    <button className="bg-blue-500 text-white py-2.5 px-4 rounded-xl font-semibold hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 text-sm md:text-base">
                       🖨️ {t('print')}
                     </button>
-                    <button className="bg-purple-500 text-white py-3 px-6 rounded-xl font-semibold hover:bg-purple-600 transition-colors flex items-center justify-center gap-2">
+                    <button className="bg-purple-500 text-white py-2.5 px-4 rounded-xl font-semibold hover:bg-purple-600 transition-colors flex items-center justify-center gap-2 text-sm md:text-base">
                       💾 Сохранить
                     </button>
               </div>
@@ -440,7 +440,7 @@ window.PrintPage = ({ professions, setCurrentView, variant = 1 }) => {
     );
 
     return (
-        <div className="min-h-screen bg-gray-200 flex flex-col items-center justify-center py-8">
+        <div className="min-h-screen bg-gray-200 flex flex-col">
             <style>
                 {`
                     @media print {
@@ -466,41 +466,64 @@ window.PrintPage = ({ professions, setCurrentView, variant = 1 }) => {
                 `}
             </style>
 
-            <div className="print-controls fixed top-1/2 left-4 transform -translate-y-1/2 z-50 flex flex-col gap-3 bg-white p-4 rounded-xl shadow-2xl border border-gray-100 max-w-[200px]">
+            {/* Mobile top bar */}
+            <div className="print-controls md:hidden sticky top-0 z-50 bg-white border-b border-gray-200 shadow-md px-3 py-2 flex items-center gap-2">
+                <button
+                  onClick={() => setCurrentView('home', true)}
+                  className="bg-gray-800 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 flex-shrink-0"
+                >
+                  ← Назад
+                </button>
+                <div className="flex gap-1 flex-1 overflow-x-auto">
+                    <button
+                        onClick={() => setCurrentView('print_v1')}
+                        className={`px-3 py-1.5 rounded-lg text-sm flex-shrink-0 flex items-center gap-1 ${variant === 1 ? 'bg-blue-100 text-blue-700 font-bold border border-blue-300' : 'bg-gray-100 text-gray-600'}`}
+                    >📋 Строгий</button>
+                    <button
+                        onClick={() => setCurrentView('print_v2')}
+                        className={`px-3 py-1.5 rounded-lg text-sm flex-shrink-0 flex items-center gap-1 ${variant === 2 ? 'bg-blue-100 text-blue-700 font-bold border border-blue-300' : 'bg-gray-100 text-gray-600'}`}
+                    >📰 Журнал</button>
+                    <button
+                        onClick={() => setCurrentView('print_v3')}
+                        className={`px-3 py-1.5 rounded-lg text-sm flex-shrink-0 flex items-center gap-1 ${variant === 3 ? 'bg-blue-100 text-blue-700 font-bold border border-blue-300' : 'bg-gray-100 text-gray-600'}`}
+                    >🎨 Арт</button>
+                </div>
+                <button
+                  onClick={handlePrint}
+                  className="bg-green-600 text-white px-3 py-1.5 rounded-lg text-sm font-bold flex items-center gap-1 flex-shrink-0"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clipRule="evenodd" />
+                  </svg>
+                  Печать
+                </button>
+            </div>
+
+            {/* Desktop side panel */}
+            <div className="print-controls hidden md:flex fixed top-1/2 left-4 transform -translate-y-1/2 z-50 flex-col gap-3 bg-white p-4 rounded-xl shadow-2xl border border-gray-100 max-w-[200px]">
                 <div className="text-center mb-2">
                     <span className="text-xs font-bold uppercase text-gray-400 tracking-wider">Настройки</span>
                 </div>
-                
                 <button 
                   onClick={() => setCurrentView('home', true)}
                   className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center gap-2 text-sm w-full"
                 >
                   <span>←</span> Назад
                 </button>
-                
                 <div className="w-full h-px bg-gray-200 my-1"></div>
-                
                 <button
                     onClick={() => setCurrentView('print_v1')}
                     className={`px-4 py-3 rounded-lg transition-colors text-left text-sm w-full flex items-center gap-2 ${variant === 1 ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200' : 'hover:bg-gray-50 text-gray-600'}`}
-                >
-                    <span className="text-lg">📋</span> Строгий
-                </button>
+                ><span className="text-lg">📋</span> Строгий</button>
                 <button
                     onClick={() => setCurrentView('print_v2')}
                     className={`px-4 py-3 rounded-lg transition-colors text-left text-sm w-full flex items-center gap-2 ${variant === 2 ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200' : 'hover:bg-gray-50 text-gray-600'}`}
-                >
-                     <span className="text-lg">📰</span> Журнал
-                </button>
+                ><span className="text-lg">📰</span> Журнал</button>
                 <button
                     onClick={() => setCurrentView('print_v3')}
                     className={`px-4 py-3 rounded-lg transition-colors text-left text-sm w-full flex items-center gap-2 ${variant === 3 ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200' : 'hover:bg-gray-50 text-gray-600'}`}
-                >
-                     <span className="text-lg">🎨</span> Арт
-                </button>
-                
+                ><span className="text-lg">🎨</span> Арт</button>
                 <div className="w-full h-px bg-gray-200 my-1"></div>
-                
                 <button 
                   onClick={handlePrint}
                   className="bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-colors font-bold shadow-md flex items-center justify-center gap-2 text-sm w-full"
@@ -512,14 +535,17 @@ window.PrintPage = ({ professions, setCurrentView, variant = 1 }) => {
                 </button>
             </div>
 
-            <div className="print-container bg-white shadow-2xl overflow-hidden origin-top scale-[0.3] md:scale-[0.5] lg:scale-[0.6] xl:scale-[0.8] 2xl:scale-100 transition-transform duration-500 mx-auto">
-                {variant === 1 && renderVariant1()}
-                {variant === 2 && renderVariant2()}
-                {variant === 3 && renderVariant3()}
+            {/* Preview area */}
+            <div className="flex-1 overflow-auto flex flex-col items-start md:items-center justify-start md:justify-center py-4 md:py-8 px-0">
+                <div className="print-container bg-white shadow-2xl overflow-hidden origin-top-left scale-[0.22] xs:scale-[0.28] sm:scale-[0.38] md:scale-[0.52] lg:scale-[0.65] xl:scale-[0.80] 2xl:scale-100 transition-transform duration-300">
+                    {variant === 1 && renderVariant1()}
+                    {variant === 2 && renderVariant2()}
+                    {variant === 3 && renderVariant3()}
+                </div>
             </div>
-            
-            <p className="print-controls mt-4 text-gray-500 text-sm mb-12">
-                Предпросмотр может выглядеть мелким. При печати на А3 страница будет четкой.
+
+            <p className="print-controls text-center text-gray-500 text-xs pb-3 px-4">
+                Предпросмотр уменьшен. При печати на А3 страница будет чёткой.
             </p>
         </div>
     );
