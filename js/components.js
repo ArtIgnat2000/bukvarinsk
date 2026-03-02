@@ -1,6 +1,23 @@
 // Global Components (attached to window to be accessible)
 
-window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCurrentView, theme, toggleTheme, lastViewedProfessionId, setLastViewedProfessionId }) => {
+// Helper component for menu buttons
+const MenuButton = ({ onClick, label, icon }) => (
+    <button 
+        onClick={onClick}
+        className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-3 text-gray-700 dark:text-gray-200"
+    >
+        <span className="text-xl">{icon}</span>
+        <span className="font-medium">{label}</span>
+    </button>
+);
+
+window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCurrentView, theme, toggleTheme, lastViewedProfessionId, setLastViewedProfessionId, initialMenuOpen = false }) => {
+    const [isSidebarOpen, setIsSidebarOpen] = React.useState(initialMenuOpen);
+
+    React.useEffect(() => {
+        setIsSidebarOpen(initialMenuOpen);
+    }, [initialMenuOpen]);
+
     React.useEffect(() => {
         if (lastViewedProfessionId) {
             const element = document.getElementById(`profession-${lastViewedProfessionId}`);
@@ -10,21 +27,76 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
         }
     }, [lastViewedProfessionId]);
 
+    const handleMenuClick = (action) => {
+        action();
+        setIsSidebarOpen(false);
+    };
+
     return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500">
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 relative">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-white">{t('title')}</h1>
           <div className="flex space-x-4">
             <button 
-              onClick={toggleTheme}
-              className="bg-white rounded-lg px-3 py-2 text-gray-800"
+              onClick={() => setIsSidebarOpen(true)}
+              className="bg-white rounded-lg px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors shadow-md flex flex-col justify-center gap-1.5 w-10 h-10 items-center"
             >
-              {theme === 'light' ? '🌙' : '☀️'}
+                <span className="block w-6 h-0.5 bg-gray-800 rounded-full"></span>
+                <span className="block w-6 h-0.5 bg-gray-800 rounded-full"></span>
+                <span className="block w-6 h-0.5 bg-gray-800 rounded-full"></span>
             </button>
           </div>
+          <h1 className="text-3xl font-bold text-white">{t('title')}</h1>
         </header>
+
+        {/* Side Menu (Drawer) */}
+        {isSidebarOpen && (
+            <>
+                <div 
+                    className="fixed inset-0 bg-black/50 z-40 transition-opacity backdrop-blur-sm"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+                <div className="fixed left-0 top-0 h-full w-80 bg-white dark:bg-gray-900 shadow-2xl z-50 transform transition-transform duration-300 overflow-y-auto border-r border-gray-100 dark:border-gray-800">
+                    <div className="p-6">
+                        <div className="flex justify-between items-center mb-8">
+                            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Меню</h2>
+                            <button 
+                                onClick={() => setIsSidebarOpen(false)}
+                                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors text-gray-500"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="space-y-2">
+                             <button 
+                                onClick={toggleTheme}
+                                className="w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-3 text-gray-700 dark:text-gray-200 mb-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                            >
+                                <span className="text-xl">{theme === 'light' ? '🌙' : '☀️'}</span>
+                                <span className="font-medium">{theme === 'light' ? 'Тёмная тема' : 'Светлая тема'}</span>
+                            </button>
+
+                            <div className="h-px bg-gray-200 dark:bg-gray-700 my-4"></div>
+
+                            <MenuButton onClick={() => handleMenuClick(() => setCurrentView('print_v1'))} label="Печать Азбуки" icon="🖨️" />
+                            <MenuButton onClick={() => handleMenuClick(() => setCurrentView('history'))} label={t('history')} icon="📜" />
+                            <MenuButton onClick={() => handleMenuClick(() => setCurrentView('career'))} label={t('careerGuidance')} icon="🧭" />
+                            <MenuButton onClick={() => handleMenuClick(() => setCurrentView('parents'))} label={t('forParents')} icon="👨‍👩‍👧‍👦" />
+                            <MenuButton onClick={() => handleMenuClick(() => setCurrentView('gallery'))} label={t('gallery')} icon="🎨" />
+                            <MenuButton onClick={() => handleMenuClick(() => setCurrentView('album'))} label={t('myAlbum')} icon="📒" />
+                        </div>
+                        
+                        <div className="mt-8 text-center text-xs text-gray-400">
+                            Версия 1.0.0
+                        </div>
+                    </div>
+                </div>
+            </>
+        )}
 
         {/* Welcome Section with Map */}
         <section className="text-center mb-4 md:mb-8">
@@ -51,65 +123,33 @@ window.HomePage = ({ t, professions, fullAlphabet, setSelectedProfession, setCur
                 <div 
                   key={profession.id}
                   id={`profession-${profession.id}`}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105 flex flex-col"
+                  className="w-full cursor-pointer transform hover:scale-105 transition-all duration-300"
                   onClick={() => { 
                     setLastViewedProfessionId(profession.id);
                     setSelectedProfession(profession); 
                     setCurrentView('professions'); 
                   }}
                 >
-                  <img 
-                    src={profession.image} 
-                    alt={profession.profession}
-                    className="w-full aspect-square object-cover"
-                  />
-                  <div className="p-2 md:p-3 flex-grow flex flex-col justify-between">
-                    <div>
-                        <div className="flex items-center justify-between mb-1">
-                        <span className="text-lg md:text-xl font-bold text-purple-600">{profession.letter}</span>
+                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col h-full"> 
+                      <img 
+                        src={profession.image} 
+                        alt={profession.profession}
+                        className="w-full aspect-square object-cover"
+                      />
+                      <div className="p-2 md:p-3 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div className="flex items-center justify-between mb-1">
+                            <span className="text-lg md:text-xl font-bold text-purple-600">{profession.letter}</span>
+                            </div>
+                            <span className="text-sm font-semibold text-gray-800 dark:text-white block truncate">{profession.profession}</span>
+                            <p className="text-gray-600 dark:text-gray-400 italic mb-2 text-xs line-clamp-2">"{profession.poem}"</p>
                         </div>
-                        <span className="text-sm font-semibold text-gray-800 dark:text-white block truncate">{profession.profession}</span>
-                        <p className="text-gray-600 dark:text-gray-400 italic mb-2 text-xs line-clamp-2">"{profession.poem}"</p>
-                    </div>
+                      </div>
                   </div>
                 </div>
               ))}
             </div>
         </section>
-
-        {/* Navigation Buttons */}
-        <nav className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 mt-8">
-          <button 
-            onClick={() => setCurrentView('history')}
-            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
-          >
-            {t('history')}
-          </button>
-          <button 
-            onClick={() => setCurrentView('career')}
-            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
-          >
-            {t('careerGuidance')}
-          </button>
-          <button 
-            onClick={() => setCurrentView('parents')}
-            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
-          >
-            {t('forParents')}
-          </button>
-          <button 
-            onClick={() => setCurrentView('gallery')}
-            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
-          >
-            {t('gallery')}
-          </button>
-          <button 
-            onClick={() => setCurrentView('album')}
-            className="bg-white text-gray-800 py-3 md:py-4 px-6 rounded-xl md:rounded-2xl font-semibold hover:bg-gray-100 transition-colors text-sm md:text-base"
-          >
-            {t('myAlbum')}
-          </button>
-        </nav>
       </div>
     </div>
   );
@@ -250,6 +290,240 @@ window.HistoryPage = ({ t, setCurrentView, theme }) => (
       </div>
     </div>
   );
+
+window.PrintPage = ({ professions, setCurrentView, variant = 1 }) => {
+    const handlePrint = () => {
+        window.print();
+    };
+
+    // Common styles for printable area (A3 Landscape)
+    const pageStyle = {
+        width: '420mm', // A3 width landscape
+        height: '296mm', // A3 height landscape (slightly less than 297 to avoid overflow)
+        margin: '0 auto',
+        backgroundColor: 'white',
+        position: 'relative',
+        overflow: 'hidden',
+        pageBreakAfter: 'always',
+    };
+
+    // Variant 1: Strict Grid (Classic Educational Poster)
+    // 33 letters -> Grid 6x6 (36 slots), perfect for filling A3
+    // Changed grid to 7 cols to fit better in height, or adjust minimal size
+    const renderVariant1 = () => (
+        <div style={pageStyle} className="p-6 flex flex-col">
+            <h1 className="text-4xl font-bold text-center text-blue-800 mb-4 uppercase tracking-wider border-b-4 border-blue-200 pb-2">
+                Азбука Профессий: Путешествие в Букваринск
+            </h1>
+            {/* Changed to grid-cols-7 to reduce row count to 5 rows (33/7 = 4.7) for better fit */ }
+            <div className="flex-grow grid grid-cols-7 gap-x-2 gap-y-3 content-start justify-items-center">
+                {professions.map((p) => (
+                    <div key={p.id} className="w-full border-2 border-blue-100 rounded-lg p-1.5 flex flex-col items-center bg-white shadow-sm overflow-hidden h-[50mm]">
+                        <div className="w-full flex-grow mb-1 overflow-hidden rounded bg-gray-50 relative flex items-center justify-center">
+                            <img src={p.image} className="w-full h-full object-contain" alt={p.profession} />
+                        </div>
+                        <div className="flex items-end justify-between w-full px-1 h-[6mm] relative">
+                            <span className="text-2xl font-extrabold text-red-500 leading-none absolute left-0 bottom-0">{p.letter}</span>
+                            <span className="text-[9px] font-bold text-gray-800 uppercase tracking-tight text-right leading-none w-full pl-6 flex items-end justify-end h-full pb-0.5">{p.profession}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <div className="mt-2 text-center text-gray-400 text-xs">
+                 www.bukvarinsk.ru | Создано для обучения и вдохновения
+            </div>
+        </div>
+    );
+
+    // Variant 2: Modern Masonry / Dynamic (Varied sizes)
+    // Emphasize the "City" feel with a more newspaper/magazine layout
+    const renderVariant2 = () => (
+        <div style={pageStyle} className="bg-slate-50 relative overflow-hidden flex flex-col p-8">
+            {/* Background elements */}
+            <div className="absolute -right-20 -top-20 w-96 h-96 bg-yellow-100 rounded-full mix-blend-multiply opacity-50 z-0"></div>
+            <div className="absolute -left-20 -bottom-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply opacity-50 z-0"></div>
+
+            <div className="relative z-10 h-full flex flex-col">
+                <div className="flex items-center justify-between mb-6 border-b-2 border-slate-800 pb-4">
+                     <div className="flex items-center gap-6">
+                        <img 
+                            src="img/common/main.jpg" 
+                            className="w-48 h-24 object-cover rounded-lg shadow-md grayscale hover:grayscale-0 transition-all duration-500"
+                            alt="Map"
+                        />
+                        <div className="flex flex-col">
+                            <h1 className="text-6xl font-black text-slate-800 tracking-tighter leading-none">БУКВАРИНСК</h1>
+                            <span className="text-xl text-slate-500 font-bold tracking-[0.4em] uppercase mt-1 pl-1">Город Мастеров</span>
+                        </div>
+                     </div>
+                     <div className="text-right">
+                        <div className="text-6xl font-serif italic text-slate-300 transform -rotate-6">А-Я</div>
+                     </div>
+                </div>
+                
+                <div className="flex-grow grid grid-cols-7 grid-rows-5 gap-2">
+                     {professions.map((p, i) => (
+                        <div key={p.id} className="relative group bg-white p-1.5 rounded border border-slate-100 hover:border-slate-300 transition-colors flex flex-col">
+                            <div className="w-full flex-grow relative overflow-hidden rounded mb-1 bg-gray-100">
+                                <img src={p.image} className="w-full h-full object-cover" alt={p.profession} />
+                                <div className="absolute bottom-0 right-0 bg-slate-800/90 text-white text-xs font-bold px-1.5 py-0.5 rounded-tl">{p.letter}</div>
+                            </div>
+                            <div className="text-center">
+                                 <span className="text-[10px] uppercase font-bold text-slate-700 block truncate">{p.profession}</span>
+                            </div>
+                        </div>
+                     ))}
+                </div>
+                
+                <div className="absolute bottom-0 right-0 text-slate-300 text-[10px] font-mono">
+                    DESIGN: BUKVARINSK STD.
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderVariant3 = () => (
+        <div style={pageStyle} className="bg-white p-5 flex flex-col items-center">
+            <div className="text-center mb-0 w-full border-b-2 border-slate-100 pb-1">
+                <h1 className="text-4xl font-serif text-slate-800 tracking-tight mb-0">Алфавит Профессий</h1>
+                <p className="text-slate-400 uppercase tracking-[0.3em] text-[10px] mt-0.5">Букваринск: Город Мастеров</p>
+            </div>
+
+            {/* Grid Calculation:
+                Total Professions: 28 (It seems there are 28, not 33 as originally thought)
+                Target: Fit everything in 5 rows.
+                Grid: 6 columns x 5 rows = 30 slots total.
+                
+                Content:
+                - 1 Hero Block (2 slots wide: 2x1)
+                - 28 Professions (1 slot each)
+                Total: 2 + 28 = 30 slots. PERFECT FIT (5 rows).
+            */}
+            <div className="flex-grow grid grid-cols-6 gap-3 w-full content-start mt-4">
+                 {/* Large Hero Block - spans 2 columns, 1 row */}
+                 <div className="col-span-2 row-span-1 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-2 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-inner border border-slate-200 h-[40mm]">
+                    <div className="absolute inset-0 opacity-10 bg-[url('img/common/main.jpg')] bg-cover bg-center grayscale mix-blend-multiply"></div>
+                    <div className="relative z-10 box-border flex flex-col items-center justify-center h-full">
+                        <span className="text-4xl mb-1 block">🎓</span>
+                        <h2 className="text-xl font-bold text-slate-700 mb-0 font-serif leading-tight">Мир Знаний</h2>
+                        <p className="text-slate-500 text-[9px] leading-tight max-w-[120px] mx-auto mt-1">
+                            Изучай профессии и выбирай свое будущее.
+                        </p>
+                    </div>
+                </div>
+
+                 {professions.map((p) => (
+                    <div key={p.id} className="bg-white rounded-xl p-1 flex flex-col items-center justify-between border border-slate-100 shadow-sm hover:shadow-md transition-all h-[40mm]">
+                        <div className="w-full flex-grow relative mb-1 flex items-center justify-center">
+                             {/* Circular image container */}
+                             <div className="w-[32mm] h-[32mm] rounded-full overflow-hidden bg-slate-50 border-2 border-slate-100 shadow-sm relative z-0">
+                                <img src={p.image} className="w-full h-full object-cover" alt={p.profession} />
+                             </div>
+                             
+                             {/* Large Letter Badge */}
+                             <div className="absolute -top-1 left-2 bg-gradient-to-br from-indigo-600 to-blue-500 text-white w-9 h-9 rounded-full flex items-center justify-center text-xl font-extrabold shadow-md border-2 border-white z-10">
+                                {p.letter}
+                             </div>
+                        </div>
+                        <div className="w-full text-center h-[3mm] flex items-end justify-center">
+                             <span className="text-[8px] font-bold text-slate-700 uppercase tracking-wider block leading-none w-full truncate">{p.profession}</span>
+                        </div>
+                    </div>
+                 ))}
+            </div>
+            
+            <div className="mt-1 w-full flex justify-between text-slate-300 text-[8px] uppercase tracking-widest border-t border-slate-100 pt-0.5">
+                 <span>Educational Poster Series</span>
+                 <span>Format: A3 Landscape</span>
+            </div>
+        </div>
+    );
+
+    return (
+        <div className="min-h-screen bg-gray-200 flex flex-col items-center justify-center py-8">
+            <style>
+                {`
+                    @media print {
+                        @page { 
+                            size: A3 landscape; 
+                            margin: 0; 
+                        }
+                        body { 
+                            background: white; 
+                            -webkit-print-color-adjust: exact; 
+                        }
+                        .print-controls { display: none !important; }
+                        .print-container { 
+                            box-shadow: none !important;
+                            width: 100% !important;
+                            height: 100% !important;
+                            page-break-after: always;
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            transform: none !important;
+                        }
+                    }
+                `}
+            </style>
+
+            <div className="print-controls fixed top-1/2 left-4 transform -translate-y-1/2 z-50 flex flex-col gap-3 bg-white p-4 rounded-xl shadow-2xl border border-gray-100 max-w-[200px]">
+                <div className="text-center mb-2">
+                    <span className="text-xs font-bold uppercase text-gray-400 tracking-wider">Настройки</span>
+                </div>
+                
+                <button 
+                  onClick={() => setCurrentView('home', true)}
+                  className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center gap-2 text-sm w-full"
+                >
+                  <span>←</span> Назад
+                </button>
+                
+                <div className="w-full h-px bg-gray-200 my-1"></div>
+                
+                <button
+                    onClick={() => setCurrentView('print_v1')}
+                    className={`px-4 py-3 rounded-lg transition-colors text-left text-sm w-full flex items-center gap-2 ${variant === 1 ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200' : 'hover:bg-gray-50 text-gray-600'}`}
+                >
+                    <span className="text-lg">📋</span> Строгий
+                </button>
+                <button
+                    onClick={() => setCurrentView('print_v2')}
+                    className={`px-4 py-3 rounded-lg transition-colors text-left text-sm w-full flex items-center gap-2 ${variant === 2 ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200' : 'hover:bg-gray-50 text-gray-600'}`}
+                >
+                     <span className="text-lg">📰</span> Журнал
+                </button>
+                <button
+                    onClick={() => setCurrentView('print_v3')}
+                    className={`px-4 py-3 rounded-lg transition-colors text-left text-sm w-full flex items-center gap-2 ${variant === 3 ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200' : 'hover:bg-gray-50 text-gray-600'}`}
+                >
+                     <span className="text-lg">🎨</span> Арт
+                </button>
+                
+                <div className="w-full h-px bg-gray-200 my-1"></div>
+                
+                <button 
+                  onClick={handlePrint}
+                  className="bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-colors font-bold shadow-md flex items-center justify-center gap-2 text-sm w-full"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clipRule="evenodd" />
+                  </svg>
+                  Печать
+                </button>
+            </div>
+
+            <div className="print-container bg-white shadow-2xl overflow-hidden origin-top scale-[0.3] md:scale-[0.5] lg:scale-[0.6] xl:scale-[0.8] 2xl:scale-100 transition-transform duration-500 mx-auto">
+                {variant === 1 && renderVariant1()}
+                {variant === 2 && renderVariant2()}
+                {variant === 3 && renderVariant3()}
+            </div>
+            
+            <p className="print-controls mt-4 text-gray-500 text-sm mb-12">
+                Предпросмотр может выглядеть мелким. При печати на А3 страница будет четкой.
+            </p>
+        </div>
+    );
+};
 
 window.CareerGuidancePage = ({ t, setCurrentView, theme }) => (
     <div className={`min-h-screen ${theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'}`}>
